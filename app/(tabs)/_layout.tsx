@@ -29,8 +29,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Accueil',
+          tabBarIcon: ({ color }) => <TabBarIcon name="feed" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -48,12 +48,26 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="map/index"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Carte',
+          tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
         }}
       />
-    </Tabs>
+     <Tabs.Screen
+     name="host/index"
+     options={{
+       title: 'Lieux',
+       tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+     }}
+   />
+     <Tabs.Screen
+     name="profil/index"
+     options={{
+       title: 'Mon Profil',
+       tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
+     }}
+   />
+   </Tabs>
   );
 }

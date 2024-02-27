@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
 
-export default function TabTwoScreen() {
+export default function HostScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Liste</Text>

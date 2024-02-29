@@ -7,6 +7,7 @@ const defaultOptions: AxiosRequestConfig = { timeout: 20000 };
 export const api = {
   get: async (url: string, options: AxiosRequestConfig = defaultOptions) => {
     try {
+      console.log(API_URL + url);
       const response: AxiosResponse = await axios.get(API_URL + url, options);
       return response;
     } catch (e) {

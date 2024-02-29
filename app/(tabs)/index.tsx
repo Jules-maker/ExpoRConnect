@@ -4,6 +4,7 @@ import { Text, View } from '@/components/Themed';
 import ListComponent from '@/components/ListComponent';
 import Cards, { CardsProps } from '@/components/CardComponent';
 import { useState } from 'react';
+import { Stack, router } from 'expo-router';
 
 export default function HomeScreen() {
   const cardsList = Array.from({length: 10}, createFalseData);
@@ -17,12 +18,17 @@ export default function HomeScreen() {
       title: randomTitle,
       to: '/host/1',
       imgSrc: randomImg,
-    }
+      toFn: () => {
+        console.info('navigating to host');
+        router.navigate({pathname:'/(tabs)/host/[id]', params: {id: '1'}});
+      }
+    };
     setList([...list, newCard]);
     console.info('new data added');
   }
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: true, title: `Accueil` }} />
       <ListComponent  items={list} renderItem={(item) => <Cards {...item} />} triggerRefresh={handleData} nbColumns={2}/>
     </View>
   );

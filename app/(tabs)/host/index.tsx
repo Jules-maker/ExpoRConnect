@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-
 import { Text, View } from '@/components/Themed';
 import SearchBarComponent from '@/components/SearchComponent';
 import ListComponent from '@/components/ListComponent';

@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import LoginFormComponent from '@/components/LoginFormComponent';
 
-export default function BeginingScreen() {
+export default function LoginScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Begining</Text>
+      <Text style={styles.title}>Login</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <LoginFormComponent />
     </View>

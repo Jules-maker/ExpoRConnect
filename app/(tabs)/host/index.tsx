@@ -1,39 +1,81 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { Text, View } from '@/components/Themed';
-import SearchBarComponent from '@/components/SearchComponent';
-import ListComponent from '@/components/ListComponent';
-import Cards, { CardsProps } from '@/components/CardComponent';
-import { useState } from 'react';
-
+import { View } from "@/components/Themed";
+import SearchBarComponent from "@/components/SearchComponent";
+import ListComponent from "@/components/ListComponent";
+import Cards, { CardsProps } from "@/components/CardComponent";
+import React, { useEffect, useState } from "react";
+import { api } from "@/tools/Api";
+import { Circles } from "react-loader-spinner";
+import { useSession } from "@/components/Ctx";
+import { tintColorLight } from "@/constants/Colors";
 
 export default function HostScreen() {
-  const cardsList = Array.from({length: 10}, createFalseData);
-  const [list, setList] = useState<CardsProps[]>(cardsList);
-  const [filteredData, setFilteredData] = useState<CardsProps[]>(list);
-  const handleData = () => {
-    console.info('adding new data');
-    const randomTitle = Math.random().toString(36).substring(7);
-    const randomImg = `https://source.unsplash.com/random/320x320?sig=${Math.random()}`;
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [initialLoading, setInitialLoading] = useState(true);
 
-    const newCard = {
-      title: randomTitle,
-      to: '/host/1',
-      imgSrc: randomImg,
+  const { session } = useSession();
+  const handleData = async () => {
+    console.info("adding new data");
+    try {
+      const { data } = await api.get(
+        `api/Host?page=${page}&searchValue=${searchQuery}`,
+        { headers: { Authorization: session } },
+      );
+      setList(data.data);
+      setTotalCount(data.totalCount);
+      setPage(page + 1);
+      setInitialLoading(false);
+    } catch (e) {
+      console.log("erreur", e);
     }
-    setList([...list, newCard]);
-    console.info('new data added');
-  }
-
-  const handleSearch = (filteredData: CardsProps[]) => {
-    setFilteredData(filteredData);
   };
+
+  useEffect(() => {
+    handleData();
+  }, []);
+
+  const handleSearch = (searchQuery: string) => {
+    setPage(1);
+    setSearchQuery(searchQuery);
+  };
+
+  useEffect(() => {
+    if (initialLoading) return;
+    handleData();
+  }, [searchQuery]);
 
   return (
     <View style={styles.container}>
-      <SearchBarComponent data={list} onSearch={handleSearch} itemToFilter="title" />
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <ListComponent  items={filteredData} renderItem={(item) => <Cards {...item} />} triggerRefresh={handleData} nbColumns={2}/>
+      <SearchBarComponent disabled={initialLoading} onSearch={handleSearch} />
+      {initialLoading ? (
+        <Circles
+          height="80"
+          width="80"
+          color={tintColorLight}
+          ariaLabel="circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      ) : (
+        <View>
+          <View
+            style={styles.separator}
+            lightColor="#eee"
+            darkColor="rgba(255,255,255,0.1)"
+          />
+          <ListComponent
+            items={list}
+            renderItem={(item) => <Cards {...item} />}
+            triggerRefresh={list.length < totalCount ? handleData : () => null}
+            nbColumns={2}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -45,23 +87,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
 });
-
-const createFalseData = (): CardsProps => {
-  const randomTitle = Math.random().toString(36).substring(7);
-  const randomImg = `https://source.unsplash.com/random/320x320?sig=${Math.random()}`;
-
-  const newCard = {
-    title: randomTitle,
-    to: '/host/1',
-    imgSrc: randomImg,
-  }
-  return newCard;
-}

@@ -11,7 +11,7 @@ export default function HomePage() {
       <View style={styles.logoContainer}>
         <Image source={require('../assets/images/logo.png')} style={styles.logo} />
       </View>
-      <Link href="/(tabs)">'fzergfrtgr'</Link>   
+      <Link href="/(tabs)">'fzergfrtgr'</Link>      
       <Text style={styles.title}>Inscription</Text>
       <CarouselAutoScroll/>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />

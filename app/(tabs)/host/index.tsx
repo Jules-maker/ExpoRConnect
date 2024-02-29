@@ -9,9 +9,10 @@ import { api } from "@/tools/Api";
 import { Circles } from "react-loader-spinner";
 import { useSession } from "@/components/Ctx";
 import { tintColorLight } from "@/constants/Colors";
+import { Host } from "@/models/hostModel";
 
 export default function HostScreen() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<Host[]>([]);
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");

@@ -20,11 +20,11 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const { session, isLoading } = useSession();
 
-  if(isLoading) {
+  if (isLoading) {
     return <ActivityIndicator size={'large'} />
   }
 
-  if(!session) {
+  if (!session) {
     return <Redirect href="/login" />;
   }
 
@@ -66,28 +66,20 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
         }}
       />
-     <Tabs.Screen
-     name="host"
-     options={{
-        href: '/host',
-       tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
-     }}
-   />
-     <Tabs.Screen
-     name="profil"
-     options={{
-        href: '/profil',
-       tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
-     }}
-   />
-   <Tabs.Screen
-     name="host/[id]"
-     options={{
-      href: null,
-       title: 'Lieux',
-       tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
-     }}
-   />
-   </Tabs>
+      <Tabs.Screen
+        name="host"
+        options={{
+          href: '/host',
+          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profil"
+        options={{
+          href: '/profil',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
+        }}
+      />
+    </Tabs>
   );
 }

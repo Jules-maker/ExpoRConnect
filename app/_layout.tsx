@@ -5,8 +5,6 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 
 import { SessionProvider } from '@/components/Ctx';
-
-
 import { useColorScheme } from '@/components/useColorScheme';
 import { useEffect } from 'react';
 
@@ -22,6 +20,7 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+setTimeout(SplashScreen.hideAsync, 3000);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({

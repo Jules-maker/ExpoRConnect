@@ -68,6 +68,14 @@ export default function TabLayout() {
        tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
      }}
    />
+   <Tabs.Screen
+     name="host/[id]"
+     options={{
+      href: null,
+       title: 'Lieux',
+       tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+     }}
+   />
    </Tabs>
   );
 }

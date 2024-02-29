@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 if (!API_URL) throw new Error("API URL not found");
@@ -6,16 +6,11 @@ if (!API_URL) throw new Error("API URL not found");
 const defaultOptions: AxiosRequestConfig = { timeout: 20000 };
 
 export const api = {
-  get: async (
-    url: string,
-    headers: { [key: string]: any } = {},
-    options: AxiosRequestConfig = defaultOptions,
-  ) => {
+  get: async (url: string, options: AxiosRequestConfig = defaultOptions) => {
     // Merge headers with any provided options
     const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        ...headers,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };
@@ -30,15 +25,10 @@ export const api = {
       throw e;
     }
   },
-  delete: async (
-    url: string,
-    headers: { [key: string]: any } = {},
-    options: AxiosRequestConfig = defaultOptions,
-  ) => {
+  delete: async (url: string, options: AxiosRequestConfig = defaultOptions) => {
     const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        ...headers,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };
@@ -62,7 +52,6 @@ export const api = {
     const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        ...headers,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };

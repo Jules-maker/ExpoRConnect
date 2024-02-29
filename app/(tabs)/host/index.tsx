@@ -1,18 +1,19 @@
 import { StyleSheet } from "react-native";
 
-import { Text, View } from "@/components/Themed";
+import { View } from "@/components/Themed";
 import SearchBarComponent from "@/components/SearchComponent";
 import ListComponent from "@/components/ListComponent";
 import Cards, { CardsProps } from "@/components/CardComponent";
 import React, { useEffect, useState } from "react";
 import { api } from "@/tools/Api";
-import { Audio, ColorRing } from "react-loader-spinner";
+import { Circles } from "react-loader-spinner";
 import { useSession } from "@/components/Ctx";
+import { tintColorLight } from "@/constants/Colors";
 
 export default function HostScreen() {
   const [list, setList] = useState([]);
-  const [filteredData, setFilteredData] = useState<CardsProps[]>(list);
   const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -22,10 +23,10 @@ export default function HostScreen() {
     try {
       const { data } = await api.get(
         `api/Host?page=${page}&searchValue=${searchQuery}`,
-        { Authorization: session },
+        { headers: { Authorization: session } },
       );
-      console.log("newData", data);
       setList(data.data);
+      setTotalCount(data.totalCount);
       setPage(page + 1);
       setInitialLoading(false);
     } catch (e) {
@@ -39,7 +40,6 @@ export default function HostScreen() {
 
   const handleSearch = (searchQuery: string) => {
     setPage(1);
-    console.log(searchQuery);
     setSearchQuery(searchQuery);
   };
 
@@ -52,14 +52,14 @@ export default function HostScreen() {
     <View style={styles.container}>
       <SearchBarComponent disabled={initialLoading} onSearch={handleSearch} />
       {initialLoading ? (
-        <ColorRing
-          visible={true}
+        <Circles
           height="80"
           width="80"
-          ariaLabel="color-ring-loading"
+          color={tintColorLight}
+          ariaLabel="circles-loading"
           wrapperStyle={{}}
-          wrapperClass="color-ring-wrapper"
-          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          wrapperClass=""
+          visible={true}
         />
       ) : (
         <View>
@@ -69,9 +69,9 @@ export default function HostScreen() {
             darkColor="rgba(255,255,255,0.1)"
           />
           <ListComponent
-            items={filteredData}
+            items={list}
             renderItem={(item) => <Cards {...item} />}
-            triggerRefresh={handleData}
+            triggerRefresh={list.length < totalCount ? handleData : () => null}
             nbColumns={2}
           />
         </View>
@@ -95,15 +95,3 @@ const styles = StyleSheet.create({
     width: "80%",
   },
 });
-
-const createFalseData = (): CardsProps => {
-  const randomTitle = Math.random().toString(36).substring(7);
-  const randomImg = `https://source.unsplash.com/random/320x320?sig=${Math.random()}`;
-
-  const newCard = {
-    title: randomTitle,
-    to: "/host/1",
-    imgSrc: randomImg,
-  };
-  return newCard;
-};

@@ -36,6 +36,7 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         // headerShown: useClientOnlyValue(false, true),
         headerShown: false,
+        headerTitleAlign: 'center',
       }}>
       <Tabs.Screen
         name="index"

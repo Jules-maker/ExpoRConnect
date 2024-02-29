@@ -1,18 +1,29 @@
-import { StyleSheet, Image, useColorScheme } from 'react-native';
+import { StyleSheet } from 'react-native';
+
 import { Text, View } from '@/components/Themed';
-import CarouselAutoScroll from '../../components/Carousel/Slider';
+import ListComponent from '@/components/ListComponent';
+import Cards, { CardsProps } from '@/components/CardComponent';
+import { useState } from 'react';
 
-export default function TabOneScreen() {
-  const colorScheme = useColorScheme();
+export default function HomeScreen() {
+  const cardsList = Array.from({length: 10}, createFalseData);
+  const [list, setList] = useState<CardsProps[]>(cardsList);
+  const handleData = () => {
+    console.info('adding new data');
+    const randomTitle = Math.random().toString(36).substring(7);
+    const randomImg = `https://source.unsplash.com/random/320x320?sig=${Math.random()}`;
 
+    const newCard = {
+      title: randomTitle,
+      to: '/host/1',
+      imgSrc: randomImg,
+    }
+    setList([...list, newCard]);
+    console.info('new data added');
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image source={require('../../assets/images/logo.png')} style={styles.logo} />
-      </View>
-      <CarouselAutoScroll />
-      <Text style={styles.title}>Inscription</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <ListComponent  items={list} renderItem={(item) => <Cards {...item} />} triggerRefresh={handleData} nbColumns={2}/>
     </View>
   );
 }
@@ -20,15 +31,7 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  logoContainer: {
-    marginTop: 0,
-  },
-  logo: {
-    width: 250,
-    height: 250,
+    padding: 10,
   },
   title: {
     fontSize: 20,
@@ -40,3 +43,15 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+
+const createFalseData = (): CardsProps => {
+  const randomTitle = Math.random().toString(36).substring(7);
+  const randomImg = `https://source.unsplash.com/random/320x320?sig=${Math.random()}`;
+
+  const newCard = {
+    title: randomTitle,
+    to: '/host/1',
+    imgSrc: randomImg,
+  }
+  return newCard;
+}

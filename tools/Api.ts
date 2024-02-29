@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-const API_URL = "https://rconnect-api.azurewebsites.net/api/";
+// const API_URL = "https://rconnect-api.azurewebsites.net/api/";
+const API_URL = process.env.EXPO_PUBLIC_API_URL;
+if(!API_URL) throw new Error('API URL not found');
 
 const defaultOptions: AxiosRequestConfig = { timeout: 20000 };
 

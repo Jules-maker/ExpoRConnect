@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { useSession } from "@/components/Ctx";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 if (!API_URL) throw new Error('API URL not found');
@@ -8,13 +7,12 @@ if (!API_URL) throw new Error('API URL not found');
 const defaultOptions: AxiosRequestConfig = { timeout: 20000 };
 
 export const api = {
-  get: async (url: string, options: AxiosRequestConfig = defaultOptions) => {
-     const { session } = useSession();
+  get: async (url: string, session?: string, options: AxiosRequestConfig = defaultOptions) => {
      // Merge headers with any provided options
      const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        Authorization: session ? `Bearer ${session}` : undefined,
+        Authorization: session ? `${session}` : undefined,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };
@@ -26,12 +24,11 @@ export const api = {
       throw e;
     }
   },
-  delete: async (url: string, options: AxiosRequestConfig = defaultOptions) => {
-    const { session } = useSession();
+  delete: async (url: string, session?:string, options: AxiosRequestConfig = defaultOptions) => {
     const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        Authorization: session ? `Bearer ${session}` : undefined,
+        Authorization: session ? `${session}` : undefined,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };
@@ -49,14 +46,13 @@ export const api = {
   post: async (
     url: string,
     data: { [key: string]: any },
-    headers: { [key: string]: any } = {},
     options: AxiosRequestConfig = defaultOptions,
+    session?: string,
   ) => {
-    const { session } = useSession();
     const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        Authorization: session ? `Bearer ${session}` : undefined,
+        Authorization: session ? `${session}` : undefined,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };

@@ -4,6 +4,8 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { SessionProvider } from '@/components/Ctx';
+
 
 import { useColorScheme } from '@/components/useColorScheme';
 import { useEffect } from 'react';
@@ -15,7 +17,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: "(tabs)",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -39,10 +41,10 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+
   if (!loaded) {
     return null;
   }
-
   return <RootLayoutNav />;
 }
 
@@ -51,10 +53,12 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+      <SessionProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
+      </SessionProvider>
     </ThemeProvider>
-  );
+      );
 }

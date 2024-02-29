@@ -1,11 +1,11 @@
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 
 const DetailsScreen = () => {
 
   const {id } = useLocalSearchParams();
 
-  const img = 'https://www.ou-dejeuner.com/wp-content/uploads/2019/11/restaurant-le-royal-rouen.jpg';
+  const img = 'https://source.unsplash.com/random/320x320';
 
   const fakeOpeningHours = ['Lundi: 12h-23h', 'Mardi: 12h-23h', 'Mercredi: 12h-23h', 'Jeudi: 12h-23h', 'Vendredi: 12h-23h', 'Samedi: 12h-23h', 'Dimanche: 12h-23h'];
   const renderedDays = fakeOpeningHours.map((day) => {
@@ -13,7 +13,8 @@ const DetailsScreen = () => {
   });
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: true, title: `Restaurant ${id}`, headerTitleAlign: 'center' }} />
       <Image
         style={styles.mainImg}
         source={{
@@ -39,6 +40,9 @@ const DetailsScreen = () => {
 const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+  },
   mainImg: {
     width: windowWidth,
     height: windowWidth * 0.6,

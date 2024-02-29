@@ -7,6 +7,7 @@ import Cards, { CardsProps } from "@/components/CardComponent";
 import React, { useEffect, useState } from "react";
 import { api } from "@/tools/Api";
 import { Audio, ColorRing } from "react-loader-spinner";
+import { useSession } from "@/components/Ctx";
 
 export default function HostScreen() {
   const [list, setList] = useState([]);
@@ -14,15 +15,19 @@ export default function HostScreen() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [initialLoading, setInitialLoading] = useState(true);
+
+  const { session } = useSession();
   const handleData = async () => {
     console.info("adding new data");
     try {
-      const newData = await api.get(
-        `Host?page=${page}&searchValue=${searchQuery}`,
+      const { data } = await api.get(
+        `api/Host?page=${page}&searchValue=${searchQuery}`,
+        { Authorization: session },
       );
-      console.log("newData", newData);
-      setList(newData.data);
+      console.log("newData", data);
+      setList(data.data);
       setPage(page + 1);
+      setInitialLoading(false);
     } catch (e) {
       console.log("erreur", e);
     }
@@ -39,6 +44,7 @@ export default function HostScreen() {
   };
 
   useEffect(() => {
+    if (initialLoading) return;
     handleData();
   }, [searchQuery]);
 

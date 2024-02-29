@@ -34,12 +34,14 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
+        // headerShown: useClientOnlyValue(false, true),
+        headerShown: false,
+        headerTitleAlign: 'center',
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Accueil',
+          href: '/',
           tabBarIcon: ({ color }) => <TabBarIcon name="feed" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -58,24 +60,32 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="map/index"
+        name="map"
         options={{
-          title: 'Carte',
+          href: '/map',
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
         }}
       />
      <Tabs.Screen
-     name="host/index"
+     name="host"
      options={{
-       title: 'Lieux',
+        href: '/host',
        tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
      }}
    />
      <Tabs.Screen
-     name="profil/index"
+     name="profil"
      options={{
-       title: 'Mon Profil',
+        href: '/profil',
        tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
+     }}
+   />
+   <Tabs.Screen
+     name="host/[id]"
+     options={{
+      href: null,
+       title: 'Lieux',
+       tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
      }}
    />
    </Tabs>

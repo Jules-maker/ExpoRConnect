@@ -46,8 +46,8 @@ export const api = {
   post: async (
     url: string,
     data: { [key: string]: any },
-    headers: { [key: string]: any } = {},
     options: AxiosRequestConfig = defaultOptions,
+    session?: string,
   ) => {
     const requestOptions: AxiosRequestConfig = {
       ...options,

@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-import { Text, View } from '@/components/Themed';
+import { View } from '@/components/Themed';
 import ListComponent from '@/components/ListComponent';
 import Cards, { CardsProps } from '@/components/CardComponent';
 import { useState } from 'react';
+import { Stack } from 'expo-router';
 
 export default function HomeScreen() {
   const cardsList = Array.from({length: 10}, createFalseData);
@@ -14,15 +15,17 @@ export default function HomeScreen() {
     const randomImg = `https://source.unsplash.com/random/320x320?sig=${Math.random()}`;
 
     const newCard = {
-      title: randomTitle,
-      to: '/host/1',
-      imgSrc: randomImg,
-    }
+      name: randomTitle,
+      id: Math.random().toString(36).substring(7),
+      description: 'lorem ipsum',
+      mainphoto: randomImg,
+    };
     setList([...list, newCard]);
     console.info('new data added');
   }
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: true, title: `Accueil` }} />
       <ListComponent  items={list} renderItem={(item) => <Cards {...item} />} triggerRefresh={handleData} nbColumns={2}/>
     </View>
   );
@@ -49,9 +52,10 @@ const createFalseData = (): CardsProps => {
   const randomImg = `https://source.unsplash.com/random/320x320?sig=${Math.random()}`;
 
   const newCard = {
-    title: randomTitle,
-    to: '/host/1',
-    imgSrc: randomImg,
+    name: randomTitle,
+    id: Math.random().toString(36).substring(7),
+    description: 'lorem ipsum',
+    mainphoto: randomImg,
   }
   return newCard;
 }

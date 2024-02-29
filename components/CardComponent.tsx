@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import React from "react";
 import {
   View,
@@ -18,11 +19,12 @@ export interface CardsProps {
 
 const Cards: React.FC<CardsProps> = ({ id, name, mainphoto }) => {
   return (
-    <TouchableOpacity
+    <Link
       style={[styles.card]}
-      onPress={() => {
-        /* Navigation logic here */ console.log("nav to " + id);
-      }}
+      push href={{
+        pathname: "/(tabs)/host/[id]",
+        params: {
+            id: id}}}
     >
       <Image source={{ uri: mainphoto }} style={styles.image} />
       {name && (
@@ -30,7 +32,7 @@ const Cards: React.FC<CardsProps> = ({ id, name, mainphoto }) => {
           <Text style={styles.name}>{name}</Text>
         </View>
       )}
-    </TouchableOpacity>
+    </Link>
   );
 };
 

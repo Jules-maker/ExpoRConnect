@@ -1,6 +1,6 @@
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, StyleProp, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 export interface CardsProps {
     title?: string;
@@ -10,14 +10,17 @@ export interface CardsProps {
 
 const Cards: React.FC<CardsProps> = ({title, to, imgSrc }) => {
     return (
-        <TouchableOpacity style={[styles.card]} onPress={() => {router.navigate({ pathname: '/(tabs)/host/[id]', params: { id: to, title: title, img: imgSrc } })}}>
+        <Link style={[styles.card]} push href={{
+            pathname: "/(tabs)/host/[id]",
+            params: {
+                id: to}}}>
             <Image source={{ uri: imgSrc }} style={styles.image} />
             {title && (
                 <View style={styles.overlay}>
                     <Text style={styles.title}>{title}</Text>
                 </View>
             )}
-        </TouchableOpacity>
+        </Link>
     );
 };
 

@@ -3,9 +3,9 @@ import { useLocalSearchParams } from 'expo-router';
 
 const DetailsScreen = () => {
 
-  const host = useLocalSearchParams();
-  const id = host.id;
-  const img = host.img;
+  const {id } = useLocalSearchParams();
+
+  const img = 'https://www.ou-dejeuner.com/wp-content/uploads/2019/11/restaurant-le-royal-rouen.jpg';
 
   const fakeOpeningHours = ['Lundi: 12h-23h', 'Mardi: 12h-23h', 'Mercredi: 12h-23h', 'Jeudi: 12h-23h', 'Vendredi: 12h-23h', 'Samedi: 12h-23h', 'Dimanche: 12h-23h'];
   const renderedDays = fakeOpeningHours.map((day) => {
@@ -17,7 +17,7 @@ const DetailsScreen = () => {
       <Image
         style={styles.mainImg}
         source={{
-          uri: host.img,
+          uri: img,
         }}
       />
       <View style={styles.containerTitle}>

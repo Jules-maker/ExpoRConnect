@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-import { Text, View } from '@/components/Themed';
+import { View } from '@/components/Themed';
 import ListComponent from '@/components/ListComponent';
 import Cards, { CardsProps } from '@/components/CardComponent';
 import { useState } from 'react';
+import { Stack } from 'expo-router';
 
 export default function HomeScreen() {
   const cardsList = Array.from({length: 10}, createFalseData);
@@ -16,13 +17,14 @@ export default function HomeScreen() {
     const newCard = {
       title: randomTitle,
       to: '/host/1',
-      imgSrc: randomImg,
-    }
+      imgSrc: randomImg
+    };
     setList([...list, newCard]);
     console.info('new data added');
   }
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: true, title: `Accueil` }} />
       <ListComponent  items={list} renderItem={(item) => <Cards {...item} />} triggerRefresh={handleData} nbColumns={2}/>
     </View>
   );
@@ -32,8 +34,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    
-
   },
   title: {
     fontSize: 20,

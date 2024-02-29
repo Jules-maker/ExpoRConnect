@@ -1,17 +1,20 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { useSession } from "@/components/Ctx";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 if (!API_URL) throw new Error('API URL not found');
 
+
 const defaultOptions: AxiosRequestConfig = { timeout: 20000 };
 
 export const api = {
-  get: async (url: string, headers: { [key: string]: any } = {}, options: AxiosRequestConfig = defaultOptions) => {
+  get: async (url: string, options: AxiosRequestConfig = defaultOptions) => {
+     const { session } = useSession();
      // Merge headers with any provided options
      const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        ...headers,
+        Authorization: session ? `Bearer ${session}` : undefined,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };
@@ -23,11 +26,12 @@ export const api = {
       throw e;
     }
   },
-  delete: async (url: string, headers: { [key: string]: any } = {}, options: AxiosRequestConfig = defaultOptions) => {
+  delete: async (url: string, options: AxiosRequestConfig = defaultOptions) => {
+    const { session } = useSession();
     const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        ...headers,
+        Authorization: session ? `Bearer ${session}` : undefined,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };
@@ -48,10 +52,11 @@ export const api = {
     headers: { [key: string]: any } = {},
     options: AxiosRequestConfig = defaultOptions,
   ) => {
+    const { session } = useSession();
     const requestOptions: AxiosRequestConfig = {
       ...options,
       headers: {
-        ...headers,
+        Authorization: session ? `Bearer ${session}` : undefined,
         ...options.headers, // This ensures that any headers in the options are preserved
       },
     };

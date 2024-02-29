@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View, useColorScheme } from 'react-native';
-import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
-import Colors from '@/constants/Colors';
-import { router } from 'expo-router';
 import { Text } from './Themed';
+import { useSession } from './Ctx';
 
 
 const LoginFormComponent = () => {
-    const colorScheme = useColorScheme();
-    const colors = Colors[colorScheme ?? 'light'];
+    const { signIn } = useSession();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,30 +15,7 @@ const LoginFormComponent = () => {
         alert("Name or Email is invalid");
         return;
       }
-      console.info( { 
-        Email: email, 
-        Password: password });
-    try {
-        const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-        if(!apiUrl) throw new Error('API URL not found');
-        const response = await axios.post(`${apiUrl}Auth/login`, { 
-            Email: email, 
-            Password: password 
-        },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-        //   process response
-        console.info(response);
-        if(!response.data.token) throw new Error('Token not found');
-        await SecureStore.setItemAsync('jwtToken', response.data.token);
-      router.navigate('/conected');
-    } catch (error) {
-        console.error(error);
-      alert('Invalid credentials');
-    }
+    await signIn(email, password);
   };
 
   const handleRegister = () => {

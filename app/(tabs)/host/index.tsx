@@ -1,14 +1,12 @@
-import { StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 
 import { View } from "@/components/Themed";
 import SearchBarComponent from "@/components/SearchComponent";
 import ListComponent from "@/components/ListComponent";
 import Cards, { CardsProps } from "@/components/CardComponent";
-import React, { useEffect, useState } from "react";
 import { api } from "@/tools/Api";
-import { Circles } from "react-loader-spinner";
 import { useSession } from "@/components/Ctx";
-import { tintColorLight } from "@/constants/Colors";
+import { useEffect, useState } from "react";
 
 export default function HostScreen() {
   const [list, setList] = useState<CardsProps[]>([]);
@@ -52,15 +50,7 @@ export default function HostScreen() {
     <View style={styles.container}>
       <SearchBarComponent disabled={initialLoading} onSearch={handleSearch} />
       {initialLoading ? (
-        <Circles
-          height="80"
-          width="80"
-          color={tintColorLight}
-          ariaLabel="circles-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
+        <ActivityIndicator size={'large'} />
       ) : (
         <View>
           <View
@@ -75,7 +65,7 @@ export default function HostScreen() {
             nbColumns={2}
           />
         </View>
-      )}
+       )} 
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Redirect, Tabs } from 'expo-router';
-import { ActivityIndicator, Pressable } from 'react-native';
+import { Redirect, Tabs } from 'expo-router';
+import { ActivityIndicator } from 'react-native';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
@@ -42,6 +42,7 @@ export default function TabLayout() {
         name="home"
         options={{
           href: '/home',
+          title: 'Accueil',
           tabBarIcon: ({ color }) => <TabBarIcon name="feed" color={color} />,
         }}
       />
@@ -49,6 +50,7 @@ export default function TabLayout() {
         name="map"
         options={{
           href: '/map',
+          title: 'Carte',
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
         }}
       />
@@ -56,6 +58,7 @@ export default function TabLayout() {
         name="host"
         options={{
           href: '/host',
+          title: 'Lieux',
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
         }}
       />
@@ -63,6 +66,7 @@ export default function TabLayout() {
         name="profil"
         options={{
           href: '/profil',
+          title: 'Profil',
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
         }}
       />

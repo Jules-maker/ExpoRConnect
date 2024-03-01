@@ -13,8 +13,8 @@ const Cards: React.FC<Host> = ({ id, name, mainphoto }: Host) => {
     return (
         <Pressable
             style={[styles.card]}
-            onPress={()=> router.push({
-                pathname: "/(tabs)/host/[id]/",
+            onPress={()=> router.navigate({
+                pathname: "/(tabs)/host/",
                 params: {
                     id: id
                 }

@@ -8,14 +8,26 @@ import { api } from "@/tools/Api";
 import { useSession } from "@/components/Ctx";
 import { useEffect, useState } from "react";
 import { Host, HostResponse } from "@/models/hostModel";
+import { router, useLocalSearchParams } from "expo-router";
 
 export default function HostScreen() {
+  const { id } = useLocalSearchParams();
   const [list, setList] = useState<Host[]>([]);
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [initialLoading, setInitialLoading] = useState(true);
 
+  useEffect(() => {
+    if( id != null) {
+      router.push({
+        pathname:"/(tabs)/host/[id]/", 
+        params: {
+          id: id as string
+        }
+      });
+    }
+  });
   const { session } = useSession();
   const handleData = async () => {
     try {

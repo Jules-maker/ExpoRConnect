@@ -24,7 +24,8 @@ export default function TabLayout() {
   }
 
   if (!session) {
-    return <Redirect href="/login" />;
+    console.log("not session")
+    return <Redirect href="/homeLauncher" />;
   }
 
   return (

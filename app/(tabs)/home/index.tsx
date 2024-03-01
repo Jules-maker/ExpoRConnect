@@ -14,7 +14,7 @@ export default function HomeScreen() {
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(1);
 
-  const handleData =async  () => {
+  const handleData = async  () => {
     console.info("adding new data");
     try {
       const { data } = await api.get(

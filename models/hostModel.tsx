@@ -1,16 +1,17 @@
-export interface Host {
-    _id:          ID;
-    Name:         string;
-    Description:  string;
-    Address:      string;
-    City:         string;
-    Phone:        string;
-    Mainphoto:    string;
-    Createdat:    Date;
-    Isverified:   boolean;
-    Openinghours: string[];
+export interface HostResponse {
+    data:       Host[];
+    totalCount: number;
 }
 
-export interface ID {
-    $oid: string;
+export interface Host {
+    address:      string;
+    city:         string;
+    createdat:    Date;
+    description:  string;
+    id:           string;
+    isverified:   boolean;
+    mainphoto:    string;
+    name:         string;
+    openinghours: string[];
+    phone:        string;
 }

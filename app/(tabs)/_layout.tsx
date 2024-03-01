@@ -5,7 +5,6 @@ import { ActivityIndicator, Pressable } from 'react-native';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { useSession } from "@/components/Ctx";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -40,16 +39,34 @@ export default function TabLayout() {
         headerTitleAlign: 'center',
       }}>
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
-          href: '/home',
+          headerShown: true,
+          href: '/',
+          title: 'Accueil',
           tabBarIcon: ({ color }) => <TabBarIcon name="feed" color={color} />,
+            headerRight: () => (
+                <Link href="/modal" asChild>
+                    <Pressable>
+                        {({ pressed }) => (
+                            <FontAwesome
+                                name="info-circle"
+                                size={25}
+                                color={Colors[colorScheme ?? 'light'].text}
+                                style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                            />
+                        )}
+                    </Pressable>
+                </Link>
+            ),
+       
         }}
       />
       <Tabs.Screen
         name="map"
         options={{
           href: '/map',
+          title: 'Carte',
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
         }}
       />
@@ -57,6 +74,7 @@ export default function TabLayout() {
         name="host"
         options={{
           href: '/host',
+          title: 'Lieux',
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
         }}
       />
@@ -64,6 +82,7 @@ export default function TabLayout() {
         name="profil"
         options={{
           href: '/profil',
+          title: 'Profil',
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
         }}
       />

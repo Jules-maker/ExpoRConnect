@@ -13,7 +13,6 @@ const ListComponent = <T,>({ items, renderItem, triggerRefresh, nbColumns = 1 }:
     const [isLoading, setIsLoading] = useState(false);
 
     const handleRefresh = () => {
-        console.log('loading');
         setIsLoading(true);
         triggerRefresh && triggerRefresh();
         setIsLoading(false);

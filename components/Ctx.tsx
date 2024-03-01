@@ -42,7 +42,7 @@ export function SessionProvider(props: React.PropsWithChildren) {
             if(res.status === 200) {
               console.log(res.data);
               setSession(res.data.token);
-              router.replace('/(tabs)/home');
+              router.replace('/(tabs)');
             }
             else {
               alert('Email ou mot de passe incorrecte');

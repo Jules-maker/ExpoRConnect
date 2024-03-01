@@ -3,13 +3,14 @@ import { ActivityIndicator, StyleSheet } from "react-native";
 import { View } from "@/components/Themed";
 import SearchBarComponent from "@/components/SearchComponent";
 import ListComponent from "@/components/ListComponent";
-import Cards, { CardsProps } from "@/components/CardComponent";
+import Cards from "@/components/CardComponent";
 import { api } from "@/tools/Api";
 import { useSession } from "@/components/Ctx";
 import { useEffect, useState } from "react";
+import { Host, HostResponse } from "@/models/hostModel";
 
 export default function HostScreen() {
-  const [list, setList] = useState<CardsProps[]>([]);
+  const [list, setList] = useState<Host[]>([]);
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,13 +18,13 @@ export default function HostScreen() {
 
   const { session } = useSession();
   const handleData = async () => {
-    console.info("adding new data");
     try {
-      const { data } = await api.get(
+      const { data }: {data: HostResponse} = await api.get(
         `api/Host?page=${page}&searchValue=${searchQuery}`,
         { headers: { Authorization: session } },
       );
-      setList(data.data);
+
+      setList([...list, ...data.data]);
       setTotalCount(data.totalCount);
       setPage(page + 1);
       setInitialLoading(false);

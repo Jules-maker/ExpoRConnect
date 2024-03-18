@@ -42,7 +42,6 @@ export function SessionProvider(props: React.PropsWithChildren) {
       });
       const payload = JSON.parse(parts[1].toString());
       setIdUser(payload.nameid);
-      // console.log('id user', idUser);
     }
   }
     , [session]);

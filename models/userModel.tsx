@@ -1,15 +1,15 @@
 export interface User {
-    _id:            ID;
-    Username:       string;
-    Password:       string;
-    Email:          string;
-    Firstname:      string;
-    Lastname:       string;
-    Birthdate:      Birthdate;
-    Hobbies:        any[];
-    Contacts:       any[];
-    Rating:         any[];
-    Missedmeetings: any[];
+    id:             string;
+    username:       string;
+    password:       string;
+    email:          string;
+    firstname:      string;
+    lastname:       string;
+    birthdate:      Birthdate;
+    hobbies:        any[];
+    contacts:       any[];
+    rating:         any[];
+    missedmeetings: any[];
 }
 
 export interface Birthdate {

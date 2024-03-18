@@ -5,6 +5,7 @@ import { Link } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useSession } from '@/components/Ctx';
 
+
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -16,58 +17,58 @@ export default function ProfilScreen() {
   const { signOut } = useSession();
 
   return (
-    <View style={styles.container}>
-      <Link
-        style={styles.button}
-        push href={{
-          pathname: "/(tabs)/profil/myProfile/",
-          // params: {}
-        }}
-        asChild
-      >
-        <Pressable style={styles.row}>
-          <TabBarIcon name="user" />
-          <Text style={styles.title}>Modifier profil</Text>
-        </Pressable>
-      </Link>
+      <View style={styles.container}>
+        <Link
+          style={styles.button}
+          push href={{
+            pathname: "/(tabs)/profil/myProfile/",
+            // params: {}
+          }}
+          asChild
+        >
+          <Pressable style={styles.row}>
+            <TabBarIcon name="user" />
+            <Text style={styles.title}>Modifier profil</Text>
+          </Pressable>
+        </Link>
 
-      <Link
-        style={styles.button}
-        push href={{
-          pathname: "/(tabs)/profil/myHobbies/",
-          // params: {}
-        }}
-        asChild
-      >
-        <Pressable style={styles.row}>
-          <TabBarIcon name="heart" />
-          <Text style={styles.title}>Mes centres d'intérêt</Text>
-        </Pressable>
-      </Link>
+        <Link
+          style={styles.button}
+          push href={{
+            pathname: "/(tabs)/profil/myHobbies/",
+            // params: {}
+          }}
+          asChild
+        >
+          <Pressable style={styles.row}>
+            <TabBarIcon name="heart" />
+            <Text style={styles.title}>Mes centres d'intérêt</Text>
+          </Pressable>
+        </Link>
 
-      <Link
-        style={styles.button}
-        push href={{
-          pathname: "/(tabs)/profil/myHosts/",
-          // params: {}
-        }}
-        asChild
-      >
-        <Pressable style={styles.row}>
-          <TabBarIcon name="home" />
-          <Text style={styles.title}>Mes restaurants</Text>
-        </Pressable>
-      </Link>
+        <Link
+          style={styles.button}
+          push href={{
+            pathname: "/(tabs)/profil/myHosts/",
+            // params: {}
+          }}
+          asChild
+        >
+          <Pressable style={styles.row}>
+            <TabBarIcon name="home" />
+            <Text style={styles.title}>Mes restaurants</Text>
+          </Pressable>
+        </Link>
 
-      <Pressable style={styles.button} onPress={signOut}>
-        <View style={styles.row}>
-          <TabBarIcon name="sign-out" />
-          <Text style={styles.title}>Se déconnecter</Text>
-        </View>
-      </Pressable>
-      {/* <Text style={styles.title}>Profil</Text>
+        <Pressable style={styles.button} onPress={signOut}>
+          <View style={styles.row}>
+            <TabBarIcon name="sign-out" />
+            <Text style={styles.title}>Se déconnecter</Text>
+          </View>
+        </Pressable>
+        {/* <Text style={styles.title}>Profil</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-    </View>
+      </View>
   );
 }
 

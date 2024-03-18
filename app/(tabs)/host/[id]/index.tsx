@@ -12,6 +12,7 @@ const DetailsScreen = () => {
   const [host, setHost] = useState<Host | null>(null);
   const fetchDataHost = async () => {
     const response = await api.get(`api/Host/${id}`, { headers: { Authorization: session } });
+    console.log(id),
     console.log(response.data);
     setHost(response.data);
   }

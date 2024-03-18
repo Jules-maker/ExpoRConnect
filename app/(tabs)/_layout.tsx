@@ -62,6 +62,14 @@ export default function TabLayout() {
        
         }}
       />
+      <Tabs.Screen 
+        name="events"
+        options={{
+          href: '/events',
+          title: 'Notifications',
+          tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
+        }}
+      />
       <Tabs.Screen
         name="map"
         options={{

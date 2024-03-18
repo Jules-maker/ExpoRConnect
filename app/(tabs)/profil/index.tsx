@@ -1,56 +1,71 @@
 import React from 'react';
-import { StyleSheet, Button, Alert, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Pressable } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { Link } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useSession } from '@/components/Ctx';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
 }) {
-  return <FontAwesome size={28} style={{ marginRight: 50 }} {...props} />;
+  return <FontAwesome size={28} {...props} />;
 }
 
 export default function ProfilScreen() {
+  const { signOut } = useSession();
+
   return (
     <View style={styles.container}>
-    <Link
-      style={styles.button}
-      push href={{
-        pathname: "/(tabs)/profil/myProfile/",
-        // params: {}
+      <Link
+        style={styles.button}
+        push href={{
+          pathname: "/(tabs)/profil/myProfile/",
+          // params: {}
         }}
+        asChild
       >
-      <TabBarIcon name="user"/>
-      <Text>  </Text>
-      <Text style={styles.title}>Modifier profil</Text>
-    </Link>
+        <View style={styles.row}>
+          <TabBarIcon name="user" />
+          <Text style={styles.title}>Modifier profil</Text>
+        </View>
+      </Link>
 
-    <Link
-      style={styles.button}
-      push href={{
-        pathname: "/(tabs)/profil/myHobbies/",
-        // params: {}
+      <Link
+        style={styles.button}
+        push href={{
+          pathname: "/(tabs)/profil/myHobbies/",
+          // params: {}
         }}
+        asChild
       >
-      <TabBarIcon name="heart"/>
-      <Text>  </Text>
-      <Text style={styles.title}>Mes centres d'intérêt</Text>
-    </Link>
+        <View style={styles.row}>
+          <TabBarIcon name="heart" />
+          <Text style={styles.title}>Mes centres d'intérêt</Text>
+        </View>
+      </Link>
 
-    <Link
-      style={styles.button}
-      push href={{
-        pathname: "/(tabs)/profil/myHosts/",
-        // params: {}
+      <Link
+        style={styles.button}
+        push href={{
+          pathname: "/(tabs)/profil/myHosts/",
+          // params: {}
         }}
+        asChild
       >
-      <TabBarIcon name="home"/>
-      <Text>  </Text>
-      <Text style={styles.title}>Mes restaurants</Text>
-    </Link>
+        <View style={styles.row}>
+          <TabBarIcon name="home" />
+          <Text style={styles.title}>Mes restaurants</Text>
+        </View>
+      </Link>
 
-    <Link
+      <Pressable style={styles.button} onPress={signOut}>
+        <View style={styles.row}>
+          <TabBarIcon name="sign-out" />
+          <Text style={styles.title}>Se déconnecter</Text>
+        </View>
+      </Pressable>
+      {/* <Link
       style={styles.button}
       push href={{
         pathname: "/(tabs)/profil/signOut/",
@@ -60,7 +75,7 @@ export default function ProfilScreen() {
       <TabBarIcon name="sign-out"/>
       <Text>  </Text>
       <Text style={styles.title}>Se déconnecter</Text>
-    </Link>
+    </Link> */}
       {/* <Text style={styles.title}>Profil</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
     </View>
@@ -72,25 +87,31 @@ const windowWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    backgroundColor: 'white',
+    alignContent: 'center',
   },
   title: {
+    flex: 1,
     paddingLeft: 0,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  button: {
-    backgroundColor: 'white',
-    width: windowWidth,
-    height: windowWidth*0.175,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    borderColor:'black',
-    // borderTopWidth: 2,
     borderBottomWidth: 2,
     fontSize: 18,
-    gap: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: 20,
+    width: windowWidth,
+  },
+  button: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    padding: 30,
+    width: windowWidth,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    borderColor: 'black',
+    borderBottomWidth: 1,
+    gap: 20,
   },
 });

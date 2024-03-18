@@ -25,10 +25,10 @@ export default function ProfilScreen() {
         }}
         asChild
       >
-        <View style={styles.row}>
+        <Pressable style={styles.row}>
           <TabBarIcon name="user" />
           <Text style={styles.title}>Modifier profil</Text>
-        </View>
+        </Pressable>
       </Link>
 
       <Link
@@ -39,10 +39,10 @@ export default function ProfilScreen() {
         }}
         asChild
       >
-        <View style={styles.row}>
+        <Pressable style={styles.row}>
           <TabBarIcon name="heart" />
           <Text style={styles.title}>Mes centres d'intérêt</Text>
-        </View>
+        </Pressable>
       </Link>
 
       <Link
@@ -53,10 +53,10 @@ export default function ProfilScreen() {
         }}
         asChild
       >
-        <View style={styles.row}>
+        <Pressable style={styles.row}>
           <TabBarIcon name="home" />
           <Text style={styles.title}>Mes restaurants</Text>
-        </View>
+        </Pressable>
       </Link>
 
       <Pressable style={styles.button} onPress={signOut}>
@@ -65,17 +65,6 @@ export default function ProfilScreen() {
           <Text style={styles.title}>Se déconnecter</Text>
         </View>
       </Pressable>
-      {/* <Link
-      style={styles.button}
-      push href={{
-        pathname: "/(tabs)/profil/signOut/",
-        // params: {}
-        }}
-      >
-      <TabBarIcon name="sign-out"/>
-      <Text>  </Text>
-      <Text style={styles.title}>Se déconnecter</Text>
-    </Link> */}
       {/* <Text style={styles.title}>Profil</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
     </View>
@@ -93,7 +82,6 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     paddingLeft: 0,
-    borderBottomWidth: 2,
     fontSize: 18,
   },
   row: {

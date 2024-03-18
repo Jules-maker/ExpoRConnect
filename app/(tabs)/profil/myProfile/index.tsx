@@ -1,27 +1,29 @@
 import { View, Text, Image, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
-import { Stack, useLocalSearchParams } from 'expo-router';
 import { api } from '@/tools/Api';
 import { useSession } from '@/components/Ctx';
 import { User } from '@/models/userModel';
 import { useEffect, useState } from 'react';
 
+
 const ProfileUpdateScreen = () => {
-  const { id } = useLocalSearchParams();
-  const { session } = useSession();
-
+  const { session, idUser } = useSession();
   const [user, setUser] = useState<User | null>(null);
-  const fetchDataHost = async () => {
-    const response = await api.get(`api/User/65c62c2fa36091dbf73420c3`, { headers: { Authorization: session } });
-    // console.log(response.data);
-    setUser(response.data);
-  }
+  
 
+  const fetchUser = async () => {
+      try {
+          const response = await api.get(`api/User/${idUser}`, { headers: { Authorization: session } });
+          setUser(response.data);
+      } catch (e) {
+          setUser(null);
+      } 
+  }
+  
   useEffect(() => {
-    if(user == null) {
-      fetchDataHost();
+    if( idUser != null && user == null){
+      fetchUser();
     }
   });
-
 
   return (
     <View style={styles.container}>

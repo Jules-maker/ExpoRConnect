@@ -7,7 +7,7 @@ export interface User {
     lastname:       string;
     birthdate:      Birthdate;
     hobbies:        any[];
-    contacts:       any[];
+    favouritehosts: any[];
     rating:         any[];
     missedmeetings: any[];
 }
